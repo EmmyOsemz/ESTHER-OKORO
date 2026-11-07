@@ -1,0 +1,1178 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>esther-okoro-portfolio.vercel.app — Vercel Deployment Preview</title>
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        vercel: {
+                            bg: '#000000',
+                            card: '#0a0a0a',
+                            border: '#222222',
+                            hover: '#111111',
+                            accent: '#ffffff',
+                            cyan: '#50e3c2',
+                            amber: '#f5a623',
+                            blue: '#0070f3'
+                        },
+                        gold: {
+                            DEFAULT: '#d97706',
+                            light: '#fbbf24',
+                            dark: '#b45309'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'Plus Jakarta Sans', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'Menlo', 'monospace']
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <style>
+        /* Base Reset & Aesthetics */
+        html, body {
+            background-color: #050505;
+            color: #f3f4f6;
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Glassmorphism Classes */
+        .glass-panel {
+            background: rgba(12, 12, 12, 0.75);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .glass-panel:hover {
+            border-color: rgba(255, 255, 255, 0.22);
+            box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.9), 0 0 25px rgba(217, 119, 6, 0.08);
+        }
+
+        .glass-nav {
+            background: rgba(5, 5, 5, 0.85);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        /* Transparent Glass Sheen Button Hover Effect */
+        .glass-btn {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .glass-btn:hover {
+            background: rgba(255, 255, 255, 0.15);
+            border-color: rgba(251, 191, 36, 0.6);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px -5px rgba(217, 119, 6, 0.25);
+        }
+
+        /* Mouse Cursor Following Radial Glow Effect */
+        #cursor-glow {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 550px;
+            height: 550px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(217, 119, 6, 0.12) 0%, rgba(0, 112, 243, 0.08) 35%, rgba(0, 0, 0, 0) 70%);
+            pointer-events: none;
+            transform: translate(-50%, -50%);
+            z-index: 1;
+            transition: transform 0.04s ease-out;
+        }
+
+        /* Typewriter Cursor Caret Effect */
+        .typewriter-cursor::after {
+            content: '|';
+            animation: blink 0.8s infinite;
+            color: #fbbf24;
+            font-weight: 300;
+            margin-left: 2px;
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+
+        /* Scroll Reveal Animation Classes */
+        .reveal-on-scroll {
+            opacity: 0;
+            transform: translateY(28px);
+            transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .reveal-on-scroll.revealed {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Ambient Glow Pulse */
+        @keyframes ambientPulse {
+            0%, 100% { opacity: 0.35; transform: scale(1); }
+            50% { opacity: 0.65; transform: scale(1.1); }
+        }
+
+        .ambient-blob {
+            animation: ambientPulse 9s ease-in-out infinite;
+        }
+
+        /* Frame Viewport Switcher Container Transitions */
+        #frame-viewport-wrapper {
+            transition: width 0.4s cubic-bezier(0.16, 1, 0.3, 1), margin 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #000000;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #222222;
+            border-radius: 3px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #333333;
+        }
+    </style>
+</head>
+<body class="bg-black text-slate-100 antialiased selection:bg-amber-500 selection:text-black">
+
+    <!-- DYNAMIC CURSOR RADIAL SPOTLIGHT GLOW -->
+    <div id="cursor-glow"></div>
+
+    <!-- VERCEL PREVIEW TOOLBAR / DEPLOYMENT BAR -->
+    <div class="sticky top-0 z-50 bg-black border-b border-neutral-800 text-xs font-mono select-none">
+        <!-- Top Toolbar Header -->
+        <div class="max-w-[1600px] mx-auto px-4 py-2.5 flex flex-wrap items-center justify-between gap-4">
+            
+            <!-- Left: Deployment URL & Status -->
+            <div class="flex items-center gap-3">
+                <a href="https://vercel.com" target="_blank" class="flex items-center gap-2 hover:opacity-80 transition-opacity">
+                    <svg class="w-4 h-4 fill-current text-white" viewBox="0 0 76 65">
+                        <path d="M37.5274 0L75.0548 65H0L37.5274 0Z" />
+                    </svg>
+                    <span class="font-bold text-white tracking-tight">Vercel</span>
+                </a>
+                <span class="text-neutral-700">/</span>
+                <span class="flex items-center gap-2 bg-neutral-900 border border-neutral-800 px-3 py-1 rounded-full text-neutral-200">
+                    <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                    <span class="font-bold text-white">esther-okoro-portfolio.vercel.app</span>
+                </span>
+                <span class="hidden md:inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 font-semibold">
+                    Ready
+                </span>
+            </div>
+
+            <!-- Middle: Web Vitals Performance Pills -->
+            <div class="hidden lg:flex items-center gap-2">
+                <span class="text-[10px] text-neutral-500 uppercase tracking-widest font-sans font-bold mr-1">Web Vitals:</span>
+                <div class="flex items-center gap-1 bg-neutral-900/90 border border-neutral-800 px-2 py-0.5 rounded text-[11px]">
+                    <span class="text-neutral-400">Perf</span>
+                    <span class="text-emerald-400 font-bold">100</span>
+                </div>
+                <div class="flex items-center gap-1 bg-neutral-900/90 border border-neutral-800 px-2 py-0.5 rounded text-[11px]">
+                    <span class="text-neutral-400">A11y</span>
+                    <span class="text-emerald-400 font-bold">100</span>
+                </div>
+                <div class="flex items-center gap-1 bg-neutral-900/90 border border-neutral-800 px-2 py-0.5 rounded text-[11px]">
+                    <span class="text-neutral-400">SEO</span>
+                    <span class="text-emerald-400 font-bold">100</span>
+                </div>
+                <div class="flex items-center gap-1 bg-neutral-900/90 border border-neutral-800 px-2 py-0.5 rounded text-[11px]">
+                    <span class="text-neutral-400">Best Practices</span>
+                    <span class="text-emerald-400 font-bold">100</span>
+                </div>
+            </div>
+
+            <!-- Right: Real-time Device Viewport Switcher -->
+            <div class="flex items-center gap-2">
+                <span class="hidden sm:inline-text text-neutral-500 text-[11px] mr-1">Viewport:</span>
+                <div class="flex items-center bg-neutral-900 p-1 rounded-lg border border-neutral-800">
+                    <button onclick="setViewport('desktop')" id="btn-vp-desktop" title="Desktop View (100%)" 
+                            class="vp-btn active px-2.5 py-1 rounded text-white bg-neutral-800 flex items-center gap-1.5 hover:text-white transition-all">
+                        <i data-lucide="monitor" class="w-3.5 h-3.5"></i>
+                        <span class="hidden xl:inline text-[11px]">Desktop</span>
+                    </button>
+                    <button onclick="setViewport('laptop')" id="btn-vp-laptop" title="Laptop View (1024px)" 
+                            class="vp-btn px-2.5 py-1 rounded text-neutral-400 flex items-center gap-1.5 hover:text-white transition-all">
+                        <i data-lucide="laptop" class="w-3.5 h-3.5"></i>
+                        <span class="hidden xl:inline text-[11px]">Laptop</span>
+                    </button>
+                    <button onclick="setViewport('tablet')" id="btn-vp-tablet" title="Tablet View (768px)" 
+                            class="vp-btn px-2.5 py-1 rounded text-neutral-400 flex items-center gap-1.5 hover:text-white transition-all">
+                        <i data-lucide="tablet" class="w-3.5 h-3.5"></i>
+                        <span class="hidden xl:inline text-[11px]">Tablet</span>
+                    </button>
+                    <button onclick="setViewport('mobile')" id="btn-vp-mobile" title="Mobile View (390px)" 
+                            class="vp-btn px-2.5 py-1 rounded text-neutral-400 flex items-center gap-1.5 hover:text-white transition-all">
+                        <i data-lucide="smartphone" class="w-3.5 h-3.5"></i>
+                        <span class="hidden xl:inline text-[11px]">Mobile</span>
+                    </button>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Deployment Sub-Metadata Bar -->
+        <div class="bg-neutral-950 border-t border-neutral-900 px-4 py-1.5 text-[11px] text-neutral-400 flex flex-wrap items-center justify-between gap-3">
+            <div class="flex items-center gap-3">
+                <span class="flex items-center gap-1">
+                    <i data-lucide="git-commit" class="w-3 h-3 text-neutral-500"></i>
+                    <span class="text-neutral-300 font-semibold">feat: 10x-portfolio-redesign</span> 
+                    <span class="text-neutral-500 font-mono">(a4f89d1)</span>
+                </span>
+                <span class="text-neutral-700">·</span>
+                <span class="hidden sm:inline">Environment: <span class="text-neutral-200">Production (Main)</span></span>
+                <span class="text-neutral-700 hidden sm:inline">·</span>
+                <span>Deployed 2m ago by <span class="text-neutral-200">Esther Okoro</span></span>
+            </div>
+            <div class="flex items-center gap-3 text-neutral-400">
+                <span class="hidden md:inline">Region: <span class="text-neutral-200">sfo1 (San Francisco)</span></span>
+                <span class="hidden md:inline text-neutral-700">·</span>
+                <span class="text-emerald-400 font-medium flex items-center gap-1">
+                    <i data-lucide="zap" class="w-3 h-3"></i> Edge Cache Hit
+                </span>
+            </div>
+        </div>
+    </div>
+
+    <!-- VIEWPORT WRAPPER FRAME (Allows Device Switcher Simulation) -->
+    <div id="frame-viewport-wrapper" class="w-full mx-auto relative transition-all duration-300 bg-neutral-950/40">
+        
+        <!-- MAIN PORTFOLIO WEB APPLICATION -->
+        <div class="w-full min-h-screen relative flex flex-col z-10 bg-black text-slate-100 overflow-hidden">
+
+            <!-- Ambient Background Mesh Glow Blobs -->
+            <div class="fixed inset-0 pointer-events-none overflow-hidden z-0">
+                <div class="absolute -top-40 -left-40 w-[600px] h-[600px] bg-amber-500/10 rounded-full blur-[140px] ambient-blob"></div>
+                <div class="absolute top-1/3 -right-40 w-[550px] h-[550px] bg-blue-600/10 rounded-full blur-[140px] ambient-blob" style="animation-delay: 3s;"></div>
+                <div class="absolute bottom-1/4 left-1/4 w-[650px] h-[650px] bg-emerald-500/10 rounded-full blur-[150px] ambient-blob" style="animation-delay: 6s;"></div>
+            </div>
+
+            <!-- Application Navigation Header -->
+            <header class="w-full glass-nav sticky top-0 z-40">
+                <div class="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
+                    <a href="#" class="flex items-center gap-3 group">
+                        <div class="w-9 h-9 rounded-xl bg-neutral-900 border border-neutral-700/80 flex items-center justify-center text-amber-400 font-mono text-sm font-black group-hover:border-amber-400 transition-all shadow-md">
+                            EO
+                        </div>
+                        <div>
+                            <span class="text-sm font-extrabold tracking-tight text-white block leading-none">Esther Okoro</span>
+                            <span class="text-[10px] text-neutral-400 font-mono">PHRi™ Executive HR Lead</span>
+                        </div>
+                    </a>
+
+                    <nav class="hidden md:flex items-center gap-7 text-xs font-medium text-neutral-300">
+                        <a href="#about" class="hover:text-amber-400 transition-colors">Overview</a>
+                        <a href="#services" class="hover:text-amber-400 transition-colors">Services</a>
+                        <a href="#tech-stack" class="hover:text-amber-400 transition-colors">HR Tech Stack</a>
+                        <a href="#timeline" class="hover:text-amber-400 transition-colors">Career Timeline</a>
+                        <a href="#strategy-call" class="hover:text-amber-400 transition-colors">Strategy Session</a>
+                        <a href="#lead-magnet" class="hover:text-amber-400 transition-colors">Free HR Audit</a>
+                    </nav>
+
+                    <div class="flex items-center gap-3">
+                        <button onclick="openModal('resumeModal')" 
+                                class="px-3 py-1.5 rounded-lg border border-neutral-800 bg-neutral-900/80 text-neutral-200 hover:text-white hover:border-neutral-600 font-mono text-xs transition-all flex items-center gap-1.5">
+                            <i data-lucide="file-text" class="w-3.5 h-3.5 text-amber-400"></i> Resume.pdf
+                        </button>
+                        <button onclick="openModal('bookingModal')" 
+                                class="px-4 py-1.5 rounded-lg bg-gradient-to-r from-amber-500 to-amber-600 text-black font-bold text-xs hover:from-amber-400 hover:to-amber-500 transition-all shadow-lg shadow-amber-500/20 flex items-center gap-1.5">
+                            <i data-lucide="calendar" class="w-3.5 h-3.5"></i> Book Call
+                        </button>
+                        <button onclick="toggleMobileMenu()" class="md:hidden p-1.5 text-neutral-400 hover:text-white">
+                            <i data-lucide="menu" class="w-5 h-5"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Mobile Menu Dropdown -->
+                <div id="mobileMenu" class="hidden md:hidden border-t border-neutral-800 bg-black/95 p-6 space-y-3 text-sm">
+                    <a href="#about" onclick="toggleMobileMenu()" class="block text-neutral-300 hover:text-amber-400 py-1">Overview</a>
+                    <a href="#services" onclick="toggleMobileMenu()" class="block text-neutral-300 hover:text-amber-400 py-1">Services</a>
+                    <a href="#tech-stack" onclick="toggleMobileMenu()" class="block text-neutral-300 hover:text-amber-400 py-1">HR Tech Stack</a>
+                    <a href="#timeline" onclick="toggleMobileMenu()" class="block text-neutral-300 hover:text-amber-400 py-1">Career Timeline</a>
+                    <a href="#strategy-call" onclick="toggleMobileMenu()" class="block text-neutral-300 hover:text-amber-400 py-1">Strategy Session</a>
+                    <a href="#lead-magnet" onclick="toggleMobileMenu()" class="block text-neutral-300 hover:text-amber-400 py-1">Free HR Audit</a>
+                </div>
+            </header>
+
+            <!-- HERO SECTION (SIDE-BY-SIDE GRID LAYOUT) -->
+            <section class="py-16 md:py-24 px-6 relative z-10 max-w-7xl mx-auto w-full">
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
+                    
+                    <!-- HERO LEFT COLUMN (7 COLS) -->
+                    <div class="lg:col-span-7 space-y-6 reveal-on-scroll">
+                        
+                        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-neutral-900/90 border border-neutral-800 text-xs font-mono text-neutral-300">
+                            <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
+                            <span class="text-amber-400 font-bold">PHRi™ Certified</span>
+                            <span class="text-neutral-600">|</span>
+                            <span class="text-neutral-400">Global HRCI Credential</span>
+                        </div>
+
+                        <!-- Headline with Typewriter Cursor Animation -->
+                        <h1 class="text-3xl sm:text-5xl lg:text-6xl font-black text-white tracking-tight leading-[1.15] min-h-[110px] sm:min-h-[140px]">
+                            <span id="typewriter-text" class="typewriter-cursor text-transparent bg-clip-text bg-gradient-to-r from-white via-neutral-100 to-amber-300"></span>
+                        </h1>
+
+                        <p class="text-base sm:text-lg text-neutral-300 leading-relaxed max-w-2xl font-normal">
+                            Strategic HR Executive with 7+ years of expertise driving organizational design, executive talent acquisition, L&D leadership, and labor law compliance across fast-paced environments.
+                        </p>
+
+                        <!-- Action CTAs with Glass Sheen Hover Effect -->
+                        <div class="flex flex-wrap items-center gap-4 pt-2">
+                            <button onclick="openModal('bookingModal')" 
+                                    class="glass-btn px-6 py-3.5 rounded-xl text-white font-bold text-xs uppercase tracking-wider flex items-center gap-2">
+                                <i data-lucide="calendar" class="w-4 h-4 text-amber-400"></i> Schedule a Call
+                            </button>
+                            <a href="#services" 
+                               class="glass-btn px-6 py-3.5 rounded-xl text-neutral-300 hover:text-white font-semibold text-xs uppercase tracking-wider flex items-center gap-2">
+                                Explore Services <i data-lucide="arrow-right" class="w-4 h-4 text-neutral-400"></i>
+                            </a>
+                            <button onclick="openModal('resumeModal')" 
+                                    class="px-5 py-3.5 rounded-xl border border-neutral-800 bg-neutral-900/60 text-neutral-400 hover:text-white text-xs font-mono transition-all flex items-center gap-2">
+                                <i data-lucide="download" class="w-4 h-4"></i> Download CV
+                            </button>
+                        </div>
+
+                        <!-- Key Skill Badges -->
+                        <div class="pt-6 border-t border-neutral-900 flex flex-wrap gap-2 text-xs font-mono text-neutral-400">
+                            <span class="px-2.5 py-1 rounded-md bg-neutral-900 border border-neutral-800">✓ Talent Sourcing</span>
+                            <span class="px-2.5 py-1 rounded-md bg-neutral-900 border border-neutral-800">✓ L&D Architecture</span>
+                            <span class="px-2.5 py-1 rounded-md bg-neutral-900 border border-neutral-800">✓ Employee Relations</span>
+                            <span class="px-2.5 py-1 rounded-md bg-neutral-900 border border-neutral-800">✓ Labor Compliance</span>
+                        </div>
+
+                    </div>
+
+                    <!-- HERO RIGHT COLUMN (5 COLS: Side-by-Side Portrait) -->
+                    <div class="lg:col-span-5 relative reveal-on-scroll" style="transition-delay: 0.15s;">
+                        <div class="relative max-w-md mx-auto lg:max-w-none">
+                            
+                            <!-- Glowing Aura Behind Photo Frame -->
+                            <div class="absolute -inset-1 bg-gradient-to-r from-amber-500/30 via-emerald-500/20 to-blue-600/30 rounded-3xl blur-2xl opacity-70"></div>
+
+                            <!-- Main Photo Frame -->
+                            <div class="relative bg-neutral-950/80 border border-neutral-800 rounded-3xl p-4 shadow-2xl overflow-hidden group backdrop-blur-xl">
+                                
+                                <div class="relative aspect-[4/5] rounded-2xl overflow-hidden bg-neutral-900 border border-neutral-800">
+                                    <img src="https://esther-okoro729.github.io/portfolio/assets/esther.jpg" 
+                                         alt="Esther Okoro - Executive Portrait" 
+                                         onerror="this.onerror=null; this.src='https://placehold.co/600x750/111111/ffffff?text=Esther+Okoro+PHRi';"
+                                         class="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700 ease-out">
+                                    
+                                    <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-85"></div>
+
+                                    <!-- Image Bottom Overlay Banner -->
+                                    <div class="absolute bottom-3 left-3 right-3 p-3.5 rounded-xl bg-black/85 backdrop-blur-md border border-neutral-800">
+                                        <h3 class="text-base font-bold text-white">Esther Okoro</h3>
+                                        <p class="text-xs text-amber-400 font-mono">Head of HR @ Murphy Ben Int.</p>
+                                    </div>
+                                </div>
+
+                                <!-- Floating Metric Badge 1: Top-Left -->
+                                <div class="absolute -top-2 -left-2 bg-neutral-950/95 border border-neutral-800 backdrop-blur-md px-3.5 py-2 rounded-2xl shadow-xl flex items-center gap-2">
+                                    <div class="w-7 h-7 rounded-lg bg-amber-500/10 text-amber-400 flex items-center justify-center font-bold text-xs">
+                                        <i data-lucide="briefcase" class="w-3.5 h-3.5"></i>
+                                    </div>
+                                    <div>
+                                        <div class="text-xs font-black text-white">7+ Yrs Experience</div>
+                                        <div class="text-[10px] text-neutral-400 font-mono">HR Leadership</div>
+                                    </div>
+                                </div>
+
+                                <!-- Floating Metric Badge 2: Top-Right -->
+                                <div class="absolute top-8 -right-3 bg-neutral-950/95 border border-neutral-800 backdrop-blur-md px-3.5 py-2 rounded-2xl shadow-xl flex items-center gap-2">
+                                    <div class="w-7 h-7 rounded-lg bg-emerald-500/10 text-emerald-400 flex items-center justify-center font-bold text-xs">
+                                        <i data-lucide="award" class="w-3.5 h-3.5"></i>
+                                    </div>
+                                    <div>
+                                        <div class="text-xs font-black text-white">PHRi™ Certified</div>
+                                        <div class="text-[10px] text-neutral-400 font-mono">HRCI Credential</div>
+                                    </div>
+                                </div>
+
+                                <!-- Floating Metric Badge 3: Bottom-Right -->
+                                <div class="absolute bottom-16 -right-2 bg-neutral-950/95 border border-neutral-800 backdrop-blur-md px-3.5 py-2 rounded-2xl shadow-xl flex items-center gap-2">
+                                    <div class="w-7 h-7 rounded-lg bg-blue-500/10 text-blue-400 flex items-center justify-center font-bold text-xs">
+                                        <i data-lucide="users" class="w-3.5 h-3.5"></i>
+                                    </div>
+                                    <div>
+                                        <div class="text-xs font-black text-white">250+ Placed</div>
+                                        <div class="text-[10px] text-neutral-400 font-mono">Talent Recruited</div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </section>
+
+            <!-- EXECUTIVE OVERVIEW SECTION -->
+            <section id="about" class="py-20 px-6 border-t border-neutral-900 bg-neutral-950/60 relative z-10">
+                <div class="max-w-7xl mx-auto space-y-12 reveal-on-scroll">
+                    <div class="flex flex-col md:flex-row md:items-end justify-between gap-6">
+                        <div class="space-y-2">
+                            <span class="text-xs font-mono uppercase tracking-widest text-amber-400">// Executive Profile</span>
+                            <h2 class="text-3xl font-black text-white tracking-tight">Strategic Human Capital Leadership</h2>
+                        </div>
+                        <p class="text-neutral-400 max-w-md text-xs leading-relaxed font-mono">
+                            Aligning workforce operations with business goals through data, compassion, and structural efficiency.
+                        </p>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        
+                        <div class="md:col-span-2 glass-panel rounded-3xl p-8 space-y-6 flex flex-col justify-between">
+                            <div class="space-y-4">
+                                <div class="w-10 h-10 rounded-xl bg-neutral-900 border border-neutral-800 flex items-center justify-center text-amber-400">
+                                    <i data-lucide="user-check" class="w-5 h-5"></i>
+                                </div>
+                                <h3 class="text-2xl font-bold text-white">Multi-Industry HR Operations & Compliance</h3>
+                                <p class="text-neutral-300 text-sm leading-relaxed">
+                                    As a certified Professional in Human Resources – International (PHRi™), Esther Okoro oversees corporate talent management, multi-departmental appraisal cycles, standard operating procedures (SOPs), and payroll administration across technology, media, and manufacturing sectors.
+                                </p>
+                            </div>
+
+                            <div class="grid grid-cols-3 gap-4 pt-4 border-t border-neutral-800/80 font-mono text-xs">
+                                <div>
+                                    <span class="text-neutral-500 block">BASE LOCATION</span>
+                                    <span class="text-neutral-200 font-semibold">Enugu, Nigeria</span>
+                                </div>
+                                <div>
+                                    <span class="text-neutral-500 block">GLOBAL CREDENTIAL</span>
+                                    <span class="text-amber-400 font-semibold">PHRi™ HRCI</span>
+                                </div>
+                                <div>
+                                    <span class="text-neutral-500 block">SPECIALTY</span>
+                                    <span class="text-neutral-200 font-semibold">Talent & L&D</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="glass-panel rounded-3xl p-8 space-y-6 flex flex-col justify-between">
+                            <div class="space-y-4">
+                                <h3 class="text-lg font-bold text-white flex items-center gap-2">
+                                    <i data-lucide="target" class="w-4 h-4 text-amber-400"></i> Core Competencies
+                                </h3>
+                                <div class="space-y-2 font-mono text-xs text-neutral-300">
+                                    <div class="p-2.5 rounded-lg bg-black/60 border border-neutral-800">✦ Executive Talent Acquisition</div>
+                                    <div class="p-2.5 rounded-lg bg-black/60 border border-neutral-800">✦ L&D Leadership Architecture</div>
+                                    <div class="p-2.5 rounded-lg bg-black/60 border border-neutral-800">✦ Dispute & Employee Relations</div>
+                                    <div class="p-2.5 rounded-lg bg-black/60 border border-neutral-800">✦ Labor Law & Compliance Audits</div>
+                                </div>
+                            </div>
+                            <button onclick="openModal('bookingModal')" class="w-full py-2.5 rounded-xl border border-neutral-700 bg-neutral-900 hover:bg-white hover:text-black font-mono text-xs text-neutral-200 font-semibold transition-all">
+                                Request Strategy Session →
+                            </button>
+                        </div>
+
+                    </div>
+                </div>
+            </section>
+
+            <!-- SERVICES BENTO GRID SECTION -->
+            <section id="services" class="py-20 px-6 relative z-10">
+                <div class="max-w-7xl mx-auto space-y-12">
+                    <div class="text-center max-w-2xl mx-auto space-y-3 reveal-on-scroll">
+                        <span class="text-xs font-mono uppercase tracking-widest text-amber-400">// Offerings</span>
+                        <h2 class="text-3xl font-extrabold text-white tracking-tight">Executive HR Services</h2>
+                        <p class="text-neutral-400 text-xs">Scalable solutions tailored to build high-yield teams and healthy corporate cultures.</p>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 reveal-on-scroll">
+                        
+                        <div class="glass-panel rounded-2xl p-6 space-y-4">
+                            <div class="w-10 h-10 rounded-xl bg-neutral-900 border border-neutral-800 flex items-center justify-center text-amber-400">
+                                <i data-lucide="users" class="w-5 h-5"></i>
+                            </div>
+                            <h3 class="text-lg font-bold text-white">Talent Sourcing & Recruitment</h3>
+                            <p class="text-xs text-neutral-400 leading-relaxed">End-to-end recruitment pipelines, competency-based candidate screening, employer branding, and structured onboarding.</p>
+                        </div>
+
+                        <div class="glass-panel rounded-2xl p-6 space-y-4">
+                            <div class="w-10 h-10 rounded-xl bg-neutral-900 border border-neutral-800 flex items-center justify-center text-emerald-400">
+                                <i data-lucide="heart-handshake" class="w-5 h-5"></i>
+                            </div>
+                            <h3 class="text-lg font-bold text-white">Employee Relations & Culture</h3>
+                            <p class="text-xs text-neutral-400 leading-relaxed">Grievance resolution protocols, psychological safety frameworks, wellness programs, and retention strategies.</p>
+                        </div>
+
+                        <div class="glass-panel rounded-2xl p-6 space-y-4">
+                            <div class="w-10 h-10 rounded-xl bg-neutral-900 border border-neutral-800 flex items-center justify-center text-blue-400">
+                                <i data-lucide="graduation-cap" class="w-5 h-5"></i>
+                            </div>
+                            <h3 class="text-lg font-bold text-white">L&D Architecture & Training</h3>
+                            <p class="text-xs text-neutral-400 leading-relaxed">Training Needs Analysis (TNA), LMS administration, leadership coaching modules, and upskilling programs.</p>
+                        </div>
+
+                        <div class="glass-panel rounded-2xl p-6 space-y-4">
+                            <div class="w-10 h-10 rounded-xl bg-neutral-900 border border-neutral-800 flex items-center justify-center text-purple-400">
+                                <i data-lucide="file-check-2" class="w-5 h-5"></i>
+                            </div>
+                            <h3 class="text-lg font-bold text-white">HR Policy & Compliance Audits</h3>
+                            <p class="text-xs text-neutral-400 leading-relaxed">Employee handbooks, regulatory labor risk audits, standard operating procedures (SOPs), and governance.</p>
+                        </div>
+
+                        <div class="glass-panel rounded-2xl p-6 space-y-4">
+                            <div class="w-10 h-10 rounded-xl bg-neutral-900 border border-neutral-800 flex items-center justify-center text-cyan-400">
+                                <i data-lucide="trending-up" class="w-5 h-5"></i>
+                            </div>
+                            <h3 class="text-lg font-bold text-white">Performance Appraisals & OKRs</h3>
+                            <p class="text-xs text-neutral-400 leading-relaxed">KPI establishment, 360-degree appraisal cycles, feedback frameworks, and merit promotion structures.</p>
+                        </div>
+
+                        <div class="glass-panel rounded-2xl p-6 space-y-4">
+                            <div class="w-10 h-10 rounded-xl bg-neutral-900 border border-neutral-800 flex items-center justify-center text-rose-400">
+                                <i data-lucide="database" class="w-5 h-5"></i>
+                            </div>
+                            <h3 class="text-lg font-bold text-white">HRIS Operations & Payroll</h3>
+                            <p class="text-xs text-neutral-400 leading-relaxed">HRIS administration, payroll reconciliation, leave tracking, and personnel record management.</p>
+                        </div>
+
+                    </div>
+                </div>
+            </section>
+
+            <!-- HR TECH STACK SECTION (WITH REAL-TIME FILTERING) -->
+            <section id="tech-stack" class="py-20 px-6 border-y border-neutral-900 bg-neutral-950/80 relative z-10">
+                <div class="max-w-7xl mx-auto space-y-10 reveal-on-scroll">
+                    
+                    <div class="flex flex-col md:flex-row md:items-end justify-between gap-6">
+                        <div class="space-y-2">
+                            <span class="text-xs font-mono uppercase tracking-widest text-amber-400">// Tooling</span>
+                            <h2 class="text-3xl font-extrabold text-white tracking-tight">HR Tech Stack & Systems</h2>
+                        </div>
+                        
+                        <!-- Real-Time Search Bar -->
+                        <div class="relative min-w-[280px]">
+                            <i data-lucide="search" class="w-3.5 h-3.5 text-neutral-500 absolute left-3 top-1/2 -translate-y-1/2"></i>
+                            <input type="text" id="techSearch" onkeyup="filterTech()" placeholder="Search tools (SeamlessHR, Workday)..." 
+                                   class="w-full pl-9 pr-4 py-2 rounded-xl bg-black border border-neutral-800 text-xs text-neutral-200 placeholder-neutral-500 font-mono focus:outline-none focus:border-amber-500">
+                        </div>
+                    </div>
+
+                    <!-- Category Tabs -->
+                    <div class="flex flex-wrap gap-2 text-xs font-mono" id="techCategoryTabs">
+                        <button onclick="setTechCat('all')" class="tech-tab active px-3.5 py-1.5 rounded-lg bg-amber-500 text-black font-bold transition-all" data-cat="all">All Tools</button>
+                        <button onclick="setTechCat('hris')" class="tech-tab px-3.5 py-1.5 rounded-lg bg-neutral-900 border border-neutral-800 text-neutral-400 hover:text-white transition-all" data-cat="hris">Core HR & Payroll</button>
+                        <button onclick="setTechCat('ats')" class="tech-tab px-3.5 py-1.5 rounded-lg bg-neutral-900 border border-neutral-800 text-neutral-400 hover:text-white transition-all" data-cat="ats">ATS & Sourcing</button>
+                        <button onclick="setTechCat('collab')" class="tech-tab px-3.5 py-1.5 rounded-lg bg-neutral-900 border border-neutral-800 text-neutral-400 hover:text-white transition-all" data-cat="collab">Productivity</button>
+                    </div>
+
+                    <!-- Tools Grid -->
+                    <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3" id="techGrid">
+                        
+                        <div class="tech-card hris glass-panel rounded-xl p-3.5 text-center space-y-1.5">
+                            <div class="w-9 h-9 rounded-lg bg-neutral-900 border border-neutral-800 text-amber-400 flex items-center justify-center mx-auto text-xs font-mono font-bold">SHR</div>
+                            <div class="text-xs font-bold text-white">SeamlessHR</div>
+                            <span class="text-[9px] text-neutral-500 font-mono block">Payroll & HRIS</span>
+                        </div>
+
+                        <div class="tech-card hris glass-panel rounded-xl p-3.5 text-center space-y-1.5">
+                            <div class="w-9 h-9 rounded-lg bg-neutral-900 border border-neutral-800 text-amber-400 flex items-center justify-center mx-auto text-xs font-mono font-bold">NHR</div>
+                            <div class="text-xs font-bold text-white">NotchHR</div>
+                            <span class="text-[9px] text-neutral-500 font-mono block">Core HR Ops</span>
+                        </div>
+
+                        <div class="tech-card hris glass-panel rounded-xl p-3.5 text-center space-y-1.5">
+                            <div class="w-9 h-9 rounded-lg bg-neutral-900 border border-neutral-800 text-amber-400 flex items-center justify-center mx-auto text-xs font-mono font-bold">BHR</div>
+                            <div class="text-xs font-bold text-white">BambooHR</div>
+                            <span class="text-[9px] text-neutral-500 font-mono block">Employee Records</span>
+                        </div>
+
+                        <div class="tech-card ats glass-panel rounded-xl p-3.5 text-center space-y-1.5">
+                            <div class="w-9 h-9 rounded-lg bg-neutral-900 border border-neutral-800 text-amber-400 flex items-center justify-center mx-auto text-xs font-mono font-bold">LKN</div>
+                            <div class="text-xs font-bold text-white">LinkedIn Recruiter</div>
+                            <span class="text-[9px] text-neutral-500 font-mono block">Executive Sourcing</span>
+                        </div>
+
+                        <div class="tech-card ats glass-panel rounded-xl p-3.5 text-center space-y-1.5">
+                            <div class="w-9 h-9 rounded-lg bg-neutral-900 border border-neutral-800 text-amber-400 flex items-center justify-center mx-auto text-xs font-mono font-bold">IND</div>
+                            <div class="text-xs font-bold text-white">Indeed Hiring</div>
+                            <span class="text-[9px] text-neutral-500 font-mono block">Candidate Pipeline</span>
+                        </div>
+
+                        <div class="tech-card collab glass-panel rounded-xl p-3.5 text-center space-y-1.5">
+                            <div class="w-9 h-9 rounded-lg bg-neutral-900 border border-neutral-800 text-amber-400 flex items-center justify-center mx-auto text-xs font-mono font-bold">SLK</div>
+                            <div class="text-xs font-bold text-white">Slack</div>
+                            <span class="text-[9px] text-neutral-500 font-mono block">Internal Comm</span>
+                        </div>
+
+                        <div class="tech-card collab glass-panel rounded-xl p-3.5 text-center space-y-1.5">
+                            <div class="w-9 h-9 rounded-lg bg-neutral-900 border border-neutral-800 text-amber-400 flex items-center justify-center mx-auto text-xs font-mono font-bold">GWS</div>
+                            <div class="text-xs font-bold text-white">Google Workspace</div>
+                            <span class="text-[9px] text-neutral-500 font-mono block">Docs & Forms</span>
+                        </div>
+
+                        <div class="tech-card collab glass-panel rounded-xl p-3.5 text-center space-y-1.5">
+                            <div class="w-9 h-9 rounded-lg bg-neutral-900 border border-neutral-800 text-amber-400 flex items-center justify-center mx-auto text-xs font-mono font-bold">M365</div>
+                            <div class="text-xs font-bold text-white">Microsoft 365</div>
+                            <span class="text-[9px] text-neutral-500 font-mono block">Excel Analytics</span>
+                        </div>
+
+                        <div class="tech-card hris glass-panel rounded-xl p-3.5 text-center space-y-1.5">
+                            <div class="w-9 h-9 rounded-lg bg-neutral-900 border border-neutral-800 text-amber-400 flex items-center justify-center mx-auto text-xs font-mono font-bold">WKD</div>
+                            <div class="text-xs font-bold text-white">Workday</div>
+                            <span class="text-[9px] text-neutral-500 font-mono block">Enterprise HCM</span>
+                        </div>
+
+                        <div class="tech-card ats glass-panel rounded-xl p-3.5 text-center space-y-1.5">
+                            <div class="w-9 h-9 rounded-lg bg-neutral-900 border border-neutral-800 text-amber-400 flex items-center justify-center mx-auto text-xs font-mono font-bold">GRN</div>
+                            <div class="text-xs font-bold text-white">Greenhouse</div>
+                            <span class="text-[9px] text-neutral-500 font-mono block">ATS System</span>
+                        </div>
+
+                        <div class="tech-card collab glass-panel rounded-xl p-3.5 text-center space-y-1.5">
+                            <div class="w-9 h-9 rounded-lg bg-neutral-900 border border-neutral-800 text-amber-400 flex items-center justify-center mx-auto text-xs font-mono font-bold">ZOM</div>
+                            <div class="text-xs font-bold text-white">Zoom / Meet</div>
+                            <span class="text-[9px] text-neutral-500 font-mono block">Video Interviews</span>
+                        </div>
+
+                        <div class="tech-card collab glass-panel rounded-xl p-3.5 text-center space-y-1.5">
+                            <div class="w-9 h-9 rounded-lg bg-neutral-900 border border-neutral-800 text-amber-400 flex items-center justify-center mx-auto text-xs font-mono font-bold">CNV</div>
+                            <div class="text-xs font-bold text-white">Canva</div>
+                            <span class="text-[9px] text-neutral-500 font-mono block">L&D Materials</span>
+                        </div>
+
+                    </div>
+                </div>
+            </section>
+
+            <!-- CAREER TIMELINE WITH SCROLL PROGRESS LINE -->
+            <section id="timeline" class="py-24 px-6 relative z-10">
+                <div class="max-w-4xl mx-auto space-y-12 reveal-on-scroll">
+                    
+                    <div class="text-center space-y-2">
+                        <span class="text-xs font-mono uppercase tracking-widest text-amber-400">// Experience</span>
+                        <h2 class="text-3xl font-extrabold text-white tracking-tight">Career Journey & Key Milestones</h2>
+                        <p class="text-neutral-400 text-xs">Vertical progress line fills dynamically as you scroll down through career roles.</p>
+                    </div>
+
+                    <!-- Timeline Progress Track -->
+                    <div class="relative pl-6 sm:pl-10 space-y-10" id="timeline-container">
+                        
+                        <!-- Background Guide Line -->
+                        <div class="absolute left-2.5 sm:left-4 top-3 bottom-3 w-0.5 bg-neutral-800"></div>
+
+                        <!-- Animated Active Filling Progress Line -->
+                        <div id="timeline-progress-line" class="absolute left-2.5 sm:left-4 top-3 w-0.5 bg-gradient-to-b from-amber-400 via-emerald-400 to-blue-500 transition-all duration-300" style="height: 0%;"></div>
+
+                        <!-- Milestone Node 1 -->
+                        <div class="relative pl-6 space-y-2 group reveal-on-scroll">
+                            <div class="absolute -left-6 sm:-left-10 top-1 w-5 h-5 rounded-full bg-black border-2 border-amber-400 flex items-center justify-center shadow-lg shadow-amber-500/20 group-hover:scale-125 transition-transform">
+                                <span class="w-1.5 h-1.5 rounded-full bg-amber-400"></span>
+                            </div>
+
+                            <div class="glass-panel rounded-2xl p-6 space-y-3 cursor-pointer" onclick="toggleAccordion('role1')">
+                                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                                    <div class="flex items-center gap-3">
+                                        <div class="w-10 h-10 rounded-xl bg-neutral-900 border border-neutral-800 flex items-center justify-center text-white">
+                                            <i data-lucide="briefcase" class="w-5 h-5"></i>
+                                        </div>
+                                        <div>
+                                            <h3 class="text-lg font-bold text-white">HR Executive & Talent Lead</h3>
+                                            <p class="text-xs text-amber-400 font-mono">Murphy Ben International</p>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-center justify-between sm:justify-end gap-3 font-mono text-xs">
+                                        <span class="px-2.5 py-1 rounded bg-neutral-900 text-neutral-400 border border-neutral-800">Jun 2026 – Present</span>
+                                        <i data-lucide="chevron-down" id="role1-icon" class="w-4 h-4 text-neutral-400 transition-transform"></i>
+                                    </div>
+                                </div>
+
+                                <div id="role1-content" class="pt-3 border-t border-neutral-800/80 space-y-3 text-xs text-neutral-300 leading-relaxed">
+                                    <p>Spearheading end-to-end human capital strategy, executive talent recruitment, multi-departmental performance appraisals, and employee retention programs.</p>
+                                    <ul class="list-disc pl-4 space-y-1 text-neutral-400 font-mono">
+                                        <li>Reduced time-to-hire by 35% through structured ATS candidate screening pipelines.</li>
+                                        <li>Oversees company-wide performance review cycles and salary merit structures.</li>
+                                        <li>Architected quarterly leadership training modules for team leads and managers.</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Milestone Node 2 -->
+                        <div class="relative pl-6 space-y-2 group reveal-on-scroll">
+                            <div class="absolute -left-6 sm:-left-10 top-1 w-5 h-5 rounded-full bg-black border-2 border-emerald-400 flex items-center justify-center shadow-lg shadow-emerald-500/20 group-hover:scale-125 transition-transform">
+                                <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+                            </div>
+
+                            <div class="glass-panel rounded-2xl p-6 space-y-3 cursor-pointer" onclick="toggleAccordion('role2')">
+                                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                                    <div class="flex items-center gap-3">
+                                        <div class="w-10 h-10 rounded-xl bg-neutral-900 border border-neutral-800 flex items-center justify-center text-white">
+                                            <i data-lucide="building-2" class="w-5 h-5"></i>
+                                        </div>
+                                        <div>
+                                            <h3 class="text-lg font-bold text-white">Human Resources Manager</h3>
+                                            <p class="text-xs text-emerald-400 font-mono">Sovik Solutions Ltd / Ruach Water</p>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-center justify-between sm:justify-end gap-3 font-mono text-xs">
+                                        <span class="px-2.5 py-1 rounded bg-neutral-900 text-neutral-400 border border-neutral-800">May 2024 – Jun 2026</span>
+                                        <i data-lucide="chevron-down" id="role2-icon" class="w-4 h-4 text-neutral-400 transition-transform"></i>
+                                    </div>
+                                </div>
+
+                                <div id="role2-content" class="hidden pt-3 border-t border-neutral-800/80 space-y-3 text-xs text-neutral-300 leading-relaxed">
+                                    <p>Managed full HR operations, labor law compliance, personnel documentation, and staff welfare across corporate and production facilities.</p>
+                                    <ul class="list-disc pl-4 space-y-1 text-neutral-400 font-mono">
+                                        <li>Maintained a 98% staff retention rate across 90-day post-onboarding employee cycles.</li>
+                                        <li>Overhauled company employee handbooks and safety compliance documentation.</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Milestone Node 3 -->
+                        <div class="relative pl-6 space-y-2 group reveal-on-scroll">
+                            <div class="absolute -left-6 sm:-left-10 top-1 w-5 h-5 rounded-full bg-black border-2 border-blue-400 flex items-center justify-center shadow-lg shadow-blue-500/20 group-hover:scale-125 transition-transform">
+                                <span class="w-1.5 h-1.5 rounded-full bg-blue-400"></span>
+                            </div>
+
+                            <div class="glass-panel rounded-2xl p-6 space-y-3 cursor-pointer" onclick="toggleAccordion('role3')">
+                                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                                    <div class="flex items-center gap-3">
+                                        <div class="w-10 h-10 rounded-xl bg-neutral-900 border border-neutral-800 flex items-center justify-center text-white">
+                                            <i data-lucide="award" class="w-5 h-5"></i>
+                                        </div>
+                                        <div>
+                                            <h3 class="text-lg font-bold text-white">HR Officer & Talent Specialist</h3>
+                                            <p class="text-xs text-blue-400 font-mono">Advisory & Commercial Postings</p>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-center justify-between sm:justify-end gap-3 font-mono text-xs">
+                                        <span class="px-2.5 py-1 rounded bg-neutral-900 text-neutral-400 border border-neutral-800">2019 – 2024</span>
+                                        <i data-lucide="chevron-down" id="role3-icon" class="w-4 h-4 text-neutral-400 transition-transform"></i>
+                                    </div>
+                                </div>
+
+                                <div id="role3-content" class="hidden pt-3 border-t border-neutral-800/80 space-y-3 text-xs text-neutral-300 leading-relaxed">
+                                    <p>Conducted initial candidate screenings, interview scheduling, leave log administration, and official HR correspondence.</p>
+                                    <ul class="list-disc pl-4 space-y-1 text-neutral-400 font-mono">
+                                        <li>Successfully completed the global PHRi™ (Professional in Human Resources – International) certification.</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </section>
+
+            <!-- PRE-FOOTER CTA 1: ZOOM STRATEGY CALL SECTION -->
+            <section id="strategy-call" class="py-20 px-6 border-t border-neutral-900 bg-neutral-950/80 relative z-10">
+                <div class="max-w-7xl mx-auto glass-panel rounded-3xl p-8 sm:p-12 relative overflow-hidden reveal-on-scroll">
+                    
+                    <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+                        
+                        <!-- CTA Text Left (7 Cols) -->
+                        <div class="lg:col-span-7 space-y-6">
+                            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-500/10 border border-amber-500/30 text-xs font-mono text-amber-400">
+                                <i data-lucide="video" class="w-3.5 h-3.5"></i> 1-on-1 Executive Consultation
+                            </div>
+
+                            <h2 class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight leading-tight">
+                                Need more guidance or need a strategy session? <span class="text-amber-400">Book a call.</span>
+                            </h2>
+
+                            <p class="text-neutral-300 text-sm leading-relaxed max-w-xl">
+                                Schedule a live virtual strategy session with Esther Okoro to resolve complex HR hurdles, optimize team retention, or audit your organization's hiring architecture.
+                            </p>
+
+                            <div class="pt-2">
+                                <button onclick="openModal('bookingModal')" 
+                                        class="glass-btn px-8 py-4 rounded-xl text-white font-bold text-xs uppercase tracking-wider flex items-center gap-2">
+                                    <i data-lucide="calendar" class="w-4 h-4 text-amber-400"></i> Book Strategy Session
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Zoom Call Laptop Image Right (5 Cols) -->
+                        <div class="lg:col-span-5 relative">
+                            <div class="relative rounded-2xl overflow-hidden border border-neutral-800 shadow-2xl group">
+                                <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=1200&q=80" 
+                                     alt="African American HR Consultant on a Zoom Strategy Call" 
+                                     class="w-full h-64 sm:h-80 object-cover object-top group-hover:scale-105 transition-transform duration-700">
+                                
+                                <div class="absolute inset-0 bg-gradient-to-t from-black via-black/30 to-transparent"></div>
+
+                                <!-- Overlay Zoom Status Pill -->
+                                <div class="absolute bottom-4 left-4 right-4 p-3 rounded-xl bg-black/80 backdrop-blur-md border border-neutral-800 flex items-center justify-between">
+                                    <div class="flex items-center gap-2.5">
+                                        <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse"></span>
+                                        <span class="text-xs font-mono font-bold text-white">Zoom HD Meeting Ready</span>
+                                    </div>
+                                    <span class="text-[10px] font-mono text-neutral-400">30 / 60 Min Sessions</span>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </section>
+
+            <!-- PRE-FOOTER CTA 2: EMAIL LIST LEAD MAGNET OPT-IN SECTION -->
+            <section id="lead-magnet" class="py-20 px-6 relative z-10 border-t border-neutral-900 bg-black">
+                <div class="max-w-7xl mx-auto glass-panel rounded-3xl p-8 sm:p-12 relative overflow-hidden reveal-on-scroll">
+                    
+                    <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                        
+                        <!-- Opt-in Form Left (7 Cols) -->
+                        <div class="lg:col-span-7 space-y-6">
+                            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-xs font-mono text-emerald-400">
+                                <i data-lucide="mail" class="w-3.5 h-3.5"></i> Free Executive Resource
+                            </div>
+
+                            <h2 class="text-2xl sm:text-4xl font-extrabold text-white tracking-tight leading-tight">
+                                Download the Free <span class="text-emerald-400">Executive HR & Talent Audit Checklist</span> (2026 Edition)
+                            </h2>
+
+                            <p class="text-neutral-300 text-sm leading-relaxed max-w-xl">
+                                Join 1,200+ business leaders receiving Esther Okoro's weekly talent insights, labor compliance cheat sheets, and workforce optimization tools delivered directly to your inbox.
+                            </p>
+
+                            <!-- Interactive Opt-in Form -->
+                            <form onsubmit="handleOptin(event)" class="space-y-3 max-w-md pt-2">
+                                <div class="flex flex-col sm:flex-row gap-2">
+                                    <input type="email" required id="optinEmail" placeholder="Enter your business email address..." 
+                                           class="flex-1 px-4 py-3.5 rounded-xl bg-black border border-neutral-800 text-xs text-white placeholder-neutral-500 font-mono focus:outline-none focus:border-emerald-500">
+                                    <button type="submit" 
+                                            class="px-6 py-3.5 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-black font-bold text-xs uppercase tracking-wider transition-all shrink-0 flex items-center justify-center gap-1.5 shadow-lg shadow-emerald-500/20">
+                                        <span>Get Checklist</span>
+                                        <i data-lucide="send" class="w-3.5 h-3.5"></i>
+                                    </button>
+                                </div>
+                                <p class="text-[10px] text-neutral-500 font-mono">✦ Zero spam. Unsubscribe at any time with one click.</p>
+                            </form>
+
+                            <!-- Success Banner (Hidden Initially) -->
+                            <div id="optinSuccess" class="hidden p-4 rounded-xl bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-xs font-mono items-center gap-2">
+                                <i data-lucide="check-circle" class="w-4 h-4 shrink-0"></i>
+                                <span>Success! The HR Audit Checklist is on its way to your inbox. Check Gmail shortly!</span>
+                            </div>
+                        </div>
+
+                        <!-- Smartphone Email Notification Graphic Right (5 Cols) -->
+                        <div class="lg:col-span-5 flex justify-center">
+                            
+                            <!-- Phone Mockup Frame -->
+                            <div class="w-64 sm:w-72 rounded-[40px] bg-neutral-900 p-3 border-4 border-neutral-800 shadow-2xl relative">
+                                <div class="w-20 h-4 bg-black rounded-full mx-auto mb-2"></div>
+                                
+                                <div class="rounded-[28px] bg-black p-4 space-y-3 border border-neutral-800">
+                                    <!-- Phone Screen Header -->
+                                    <div class="flex items-center justify-between text-[10px] text-neutral-400 font-mono pb-2 border-b border-neutral-900">
+                                        <span>9:41 AM</span>
+                                        <div class="flex items-center gap-1">
+                                            <i data-lucide="wifi" class="w-3 h-3"></i>
+                                            <i data-lucide="battery-charging" class="w-3 h-3 text-emerald-400"></i>
+                                        </div>
+                                    </div>
+
+                                    <!-- Gmail Notification Card -->
+                                    <div class="p-3 rounded-2xl bg-neutral-900/90 border border-neutral-800 space-y-2 shadow-lg">
+                                        <div class="flex items-center justify-between">
+                                            <div class="flex items-center gap-1.5">
+                                                <div class="w-5 h-5 rounded-md bg-red-500/20 text-red-400 flex items-center justify-center font-bold text-[9px]">G</div>
+                                                <span class="text-[10px] font-bold text-white">Gmail · Just now</span>
+                                            </div>
+                                            <span class="text-[9px] text-neutral-500">Now</span>
+                                        </div>
+                                        <div>
+                                            <div class="text-xs font-extrabold text-white">Esther Okoro (PHRi™)</div>
+                                            <div class="text-[11px] font-bold text-amber-400">Your HR & Talent Audit Checklist [PDF]</div>
+                                            <p class="text-[10px] text-neutral-400 line-clamp-2 mt-0.5">Here is your free 2026 Executive Talent Audit Checklist to streamline your team onboarding...</p>
+                                        </div>
+                                    </div>
+
+                                    <div class="pt-2 text-center text-[9px] text-neutral-600 font-mono">
+                                        estherokoro729@gmail.com
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+            </section>
+
+            <!-- FOOTER BAR -->
+            <footer class="py-10 px-6 border-t border-neutral-800 text-xs font-mono text-neutral-500 bg-black z-20">
+                <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
+                    <div class="flex items-center gap-2">
+                        <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
+                        <span>esther-okoro-portfolio.vercel.app © 2026. All rights reserved.</span>
+                    </div>
+                    <div class="flex items-center gap-4 text-neutral-400">
+                        <a href="mailto:estherokoro729@gmail.com" class="hover:text-white transition-colors">estherokoro729@gmail.com</a>
+                        <span>·</span>
+                        <a href="https://github.com/esther-okoro729/portfolio" target="_blank" class="hover:text-white transition-colors">GitHub Repo</a>
+                    </div>
+                </div>
+            </footer>
+
+        </div>
+    </div>
+
+    <!-- MODAL 1: STRATEGY CALL BOOKING -->
+    <div id="bookingModal" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-black/85 backdrop-blur-md">
+        <div class="bg-neutral-950 max-w-md w-full rounded-3xl p-6 border border-neutral-800 space-y-5 relative shadow-2xl">
+            <button onclick="closeModal('bookingModal')" class="absolute right-5 top-5 text-neutral-400 hover:text-white">
+                <i data-lucide="x" class="w-5 h-5"></i>
+            </button>
+
+            <div class="space-y-1">
+                <span class="text-xs font-mono text-amber-400 uppercase">// Virtual Consultation</span>
+                <h3 class="text-xl font-bold text-white">Book Executive Strategy Call</h3>
+            </div>
+
+            <form onsubmit="handleBooking(event)" class="space-y-3 text-xs">
+                <div>
+                    <label class="block font-mono text-neutral-400 mb-1">Session Topic</label>
+                    <select class="w-full px-3 py-2 rounded-xl bg-black border border-neutral-800 text-white focus:outline-none focus:border-amber-400 font-mono">
+                        <option>Executive Talent Search & Hiring Strategy</option>
+                        <option>Workforce Audit & Policy Review</option>
+                        <option>L&D Leadership Architecture</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block font-mono text-neutral-400 mb-1">Your Full Name</label>
+                    <input type="text" required placeholder="e.g. Sarah Jenkins" class="w-full px-3 py-2 rounded-xl bg-black border border-neutral-800 text-white focus:outline-none focus:border-amber-400 font-mono">
+                </div>
+                <div>
+                    <label class="block font-mono text-neutral-400 mb-1">Work Email Address</label>
+                    <input type="email" required placeholder="sarah@company.com" class="w-full px-3 py-2 rounded-xl bg-black border border-neutral-800 text-white focus:outline-none focus:border-amber-400 font-mono">
+                </div>
+                <button type="submit" class="w-full py-3 rounded-xl bg-amber-500 hover:bg-amber-400 text-black font-bold uppercase tracking-wider transition-all">
+                    Confirm Consultation Booking
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- MODAL 2: RESUME PREVIEW -->
+    <div id="resumeModal" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-black/85 backdrop-blur-md">
+        <div class="bg-neutral-950 max-w-lg w-full rounded-3xl p-6 border border-neutral-800 space-y-5 relative shadow-2xl">
+            <button onclick="closeModal('resumeModal')" class="absolute right-5 top-5 text-neutral-400 hover:text-white">
+                <i data-lucide="x" class="w-5 h-5"></i>
+            </button>
+
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-xl bg-neutral-900 border border-neutral-800 text-amber-400 flex items-center justify-center font-bold">
+                    <i data-lucide="file-text" class="w-5 h-5"></i>
+                </div>
+                <div>
+                    <h3 class="text-lg font-bold text-white">Esther Okoro — Executive CV</h3>
+                    <p class="text-xs text-amber-400 font-mono">PHRi™ HRCI Certified Professional</p>
+                </div>
+            </div>
+
+            <div class="p-4 rounded-xl bg-black border border-neutral-800 space-y-3 text-xs text-neutral-300">
+                <div>
+                    <span class="font-bold text-white block">Executive Overview</span>
+                    <p class="text-neutral-400 mt-0.5">7+ years HR leadership across technology, media, and corporate sectors. Specialist in talent acquisition, employee appraisals, and labor compliance.</p>
+                </div>
+                <div>
+                    <span class="font-bold text-white block">Global Certification</span>
+                    <p class="text-emerald-400 font-mono mt-0.5">Professional in Human Resources - International (PHRi™)</p>
+                </div>
+            </div>
+
+            <button onclick="alert('Resume PDF download initiated.')" class="w-full py-3 rounded-xl bg-white text-black font-bold uppercase tracking-wider hover:bg-neutral-200 transition-all flex items-center justify-center gap-2">
+                <i data-lucide="download" class="w-4 h-4"></i> Download Full Resume (PDF)
+            </button>
+        </div>
+    </div>
+
+    <!-- INTERACTION LOGIC -->
+    <script>
+        // Initialize Lucide Icons
+        lucide.createIcons();
+
+        // 1. TYPEWRITER EFFECT FOR HERO HEADLINE
+        const textToType = "Building High-Performing Teams & Thriving Workcultures.";
+        const targetElement = document.getElementById('typewriter-text');
+        let charIndex = 0;
+
+        function typeWriter() {
+            if (charIndex < textToType.length) {
+                targetElement.textContent += textToType.charAt(charIndex);
+                charIndex++;
+                setTimeout(typeWriter, 45);
+            }
+        }
+
+        window.addEventListener('load', () => {
+            setTimeout(typeWriter, 300);
+        });
+
+        // 2. MOUSE CURSOR RADIAL SPOTLIGHT
+        const cursorGlow = document.getElementById('cursor-glow');
+        window.addEventListener('mousemove', (e) => {
+            cursorGlow.style.left = `${e.clientX}px`;
+            cursorGlow.style.top = `${e.clientY}px`;
+        });
+
+        // 3. REAL-TIME DEVICE VIEWPORT SWITCHER
+        function setViewport(mode) {
+            const wrapper = document.getElementById('frame-viewport-wrapper');
+            const buttons = document.querySelectorAll('.vp-btn');
+            
+            buttons.forEach(btn => {
+                btn.classList.remove('active', 'bg-neutral-800', 'text-white');
+                btn.classList.add('text-neutral-400');
+            });
+
+            const activeBtn = document.getElementById(`btn-vp-${mode}`);
+            if (activeBtn) {
+                activeBtn.classList.add('active', 'bg-neutral-800', 'text-white');
+            }
+
+            if (mode === 'desktop') {
+                wrapper.style.width = '100%';
+            } else if (mode === 'laptop') {
+                wrapper.style.width = '1024px';
+            } else if (mode === 'tablet') {
+                wrapper.style.width = '768px';
+            } else if (mode === 'mobile') {
+                wrapper.style.width = '390px';
+            }
+        }
+
+        // 4. SCROLL-DRIVEN CAREER TIMELINE PROGRESS LINE
+        window.addEventListener('scroll', () => {
+            const container = document.getElementById('timeline-container');
+            const progressLine = document.getElementById('timeline-progress-line');
+            if (container && progressLine) {
+                const rect = container.getBoundingClientRect();
+                const windowHeight = window.innerHeight;
+                const totalHeight = rect.height;
+                const visibleY = Math.max(0, windowHeight / 2 - rect.top);
+                const progressPercent = Math.min(100, Math.max(0, (visibleY / totalHeight) * 100));
+                progressLine.style.height = `${progressPercent}%`;
+            }
+        });
+
+        // 5. SCROLL REVEAL OBSERVER
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('revealed');
+                }
+            });
+        }, { threshold: 0.12 });
+
+        document.querySelectorAll('.reveal-on-scroll').forEach(el => revealObserver.observe(el));
+
+        // 6. TECH STACK FILTERING & SEARCH
+        function setTechCat(cat) {
+            const tabs = document.querySelectorAll('#techCategoryTabs button');
+            tabs.forEach(tab => {
+                if(tab.getAttribute('data-cat') === cat) {
+                    tab.className = 'tech-tab active px-3.5 py-1.5 rounded-lg bg-amber-500 text-black font-bold transition-all';
+                } else {
+                    tab.className = 'tech-tab px-3.5 py-1.5 rounded-lg bg-neutral-900 border border-neutral-800 text-neutral-400 hover:text-white transition-all';
+                }
+            });
+
+            const cards = document.querySelectorAll('.tech-card');
+            cards.forEach(card => {
+                if(cat === 'all' || card.classList.contains(cat)) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+
+        function filterTech() {
+            const q = document.getElementById('techSearch').value.toLowerCase();
+            const cards = document.querySelectorAll('.tech-card');
+            cards.forEach(card => {
+                const text = card.textContent.toLowerCase();
+                card.style.display = text.includes(q) ? 'block' : 'none';
+            });
+        }
+
+        // 7. ACCORDION TOGGLE
+        function toggleAccordion(roleId) {
+            const content = document.getElementById(roleId + '-content');
+            const icon = document.getElementById(roleId + '-icon');
+            if(content.classList.contains('hidden')) {
+                content.classList.remove('hidden');
+                icon.style.transform = 'rotate(180deg)';
+            } else {
+                content.classList.add('hidden');
+                icon.style.transform = 'rotate(0deg)';
+            }
+        }
+
+        // 8. MODAL HANDLERS
+        function openModal(id) {
+            document.getElementById(id).classList.remove('hidden');
+            document.getElementById(id).classList.add('flex');
+        }
+
+        function closeModal(id) {
+            document.getElementById(id).classList.add('hidden');
+            document.getElementById(id).classList.remove('flex');
+        }
+
+        function handleBooking(e) {
+            e.preventDefault();
+            alert('Consultation booking submitted! Esther Okoro\'s team will confirm shortly.');
+            closeModal('bookingModal');
+            e.target.reset();
+        }
+
+        function handleOptin(e) {
+            e.preventDefault();
+            document.getElementById('optinSuccess').classList.remove('hidden');
+            document.getElementById('optinSuccess').classList.add('flex');
+            document.getElementById('optinEmail').value = '';
+        }
+
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobileMenu');
+            menu.classList.toggle('hidden');
+        }
+    </script>
+</body>
+</html>
